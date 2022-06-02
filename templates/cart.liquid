@@ -1,0 +1,16 @@
+{% if customer.tags contains 'corporate'%}
+ {%- assign corporate = true -%}
+{%endif%}
+
+
+{% if corporate == true%}
+
+{% section 'corporate-section' %}
+
+{% elsif corporate != true %}
+
+{% section 'page-cart' %}
+
+{% endif %}
+
+
