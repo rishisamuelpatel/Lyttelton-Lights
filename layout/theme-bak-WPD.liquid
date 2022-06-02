@@ -1,0 +1,184 @@
+<!doctype html>
+<html class="no-js no-touch" lang="{{ request.locale.iso_code }}">
+<head>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+
+  <!-- Preconnect Domains -->
+  <link rel="preconnect" href="https://cdn.shopify.com" crossorigin>
+  <link rel="preconnect" href="https://fonts.shopify.com" crossorigin>
+  <link rel="preconnect" href="https://monorail-edge.shopifysvc.com">
+
+  <!-- Preload Assets -->
+  <link rel="preload" href="{{ 'theme.css' | asset_url }}" as="style">
+  <link rel="preload" href="{{ 'pacific.js' | asset_url }}" as="script">
+
+  {% if template contains 'customers' %}
+    <link rel="preload" href="{{ 'shopify_common.js' | shopify_asset_url }}" as="script">
+    <link rel="preload" href="{{ 'customer_area.js' | shopify_asset_url }}" as="script">
+  {% endif %}
+	<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.2.0/css/all.css">
+  <title>
+    {{- page_title -}}
+
+    {%- if current_tags -%}
+      &ndash; {{ 'blogs.blog.seo_title' | t }} "{{ current_tags | join: ', ' }}"
+    {%- endif -%}
+
+    {%- if current_page != 1 -%}
+      &ndash; {{ 'general.pagination.seo_title' | t }} {{ current_page }}
+    {%- endif -%}
+
+    {%- unless page_title contains shop.name -%}
+      &ndash; {{ shop.name }}
+    {%- endunless -%}
+  </title>
+
+  {% if page_description %}
+    <meta name="description" content="{{ page_description | escape }}" />
+  {% endif %}
+
+  {% if settings.favicon %}
+    <link rel="shortcut icon" href="{{ settings.favicon | img_url: '32x32' }}" type="image/png" />
+  {% endif %}
+
+  {% if template contains 'collection' and current_tags %}
+    <meta name="robots" content="noindex" />
+    <link rel="canonical" href="{{ shop.url }}{{ collection.url }}" />
+  {% else %}
+    <link rel="canonical" href="{{ canonical_url }}" />
+  {% endif %}
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+  {{ content_for_header }}
+
+  {% assign twitter_handle = settings.social-twitter-url | split: 'twitter.com/' | last %}
+  {%
+    render 'social-meta-tags',
+    twitter_handle: twitter_handle
+  %}
+
+  <!-- Theme CSS -->
+  <link rel="stylesheet" href="{{ 'theme.css' | asset_url }}">
+
+  <!-- Theme object -->
+  {% render 'theme-options' %}
+
+</head>
+
+{% assign sidebar = false %}
+{% if settings.enable-sidebar == 'all' %}
+  {% if template contains 'index' %}
+    {% assign sidebar = true %}
+  {% elsif template contains 'collection' %}
+    {% assign sidebar = true %}
+  {% endif %}
+{% elsif settings.enable-sidebar == 'not-home' and template contains 'collection' %}
+  {% assign sidebar = true %}
+{% endif %}
+
+{% if sidebar
+  and settings.sidebar-link-list-1 == blank
+  and settings.sidebar-link-list-2 == blank
+  and settings.sidebar-link-list-3 == blank
+%}
+  {% assign sidebar = false %}
+{% endif %}
+
+<body class="
+  {% if customer %}customer-logged-in{% endif %}
+  sidebar-{% if sidebar %}enabled{% else %}disabled{% endif %}
+  template-{{ template | replace: '.', ' ' | truncatewords: 1, '' | handle }}
+">
+  <script>
+    window.Pacific = {};
+    Pacific.settings = {{ settings | json }};
+    document.documentElement.className=document.documentElement.className.replace(/\bno-js\b/,'js');
+    if(('ontouchstart' in window)||window.DocumentTouch&&document instanceof DocumentTouch)document.documentElement.className=document.documentElement.className.replace(/\bno-touch\b/,'has-touch');
+  </script>
+  {% section 'pxs-announcement-bar' %}
+  {% section 'header' %}
+  
+  
+   <div id="custMsg"> </div>
+<script> 
+    if(window.location.href.indexOf('/apps/shop') != -1){ 
+      var html='<br><h1 style="text-align:center;">Wholesale</h1><p style="text-align:center;">Free shipping on domestic orders over $1000.</p><p style="text-align:center;">Wholesale pricing excludes GST.</p><p style="text-align: center;"><a style="color: #000000;" href="/account">Wholesale Hub</a></p><p></p>'; 
+     document.getElementById("custMsg").innerHTML = html; 
+   } 
+</script>
+  <div class="main-content-wrapper">
+    <div class="main-content">
+      {% unless template contains 'index' %}
+        <div class="page-header">
+          {% render 'page-header' %}
+        </div>
+      {% endunless %}
+      {{ content_for_layout }}
+    </div>
+
+    {% if sidebar %}
+      {% render 'sidebar' %}
+    {% endif %}
+  </div>
+
+  
+  
+  {% section 'promotions' %}
+  {% section 'footer' %}
+
+  {% comment %}Inject sidebar-drawer begin{% endcomment %}
+  <div class="sidebar-drawer-container" data-sidebar-drawer-container>
+    <div class="sidebar-drawer" data-sidebar-drawer tab-index="-1">
+      <div class="sidebar-drawer__header-container">
+        <div class="sidebar-drawer__header" data-sidebar-drawer-header></div>
+  
+        <button
+          class="sidebar-drawer__header-close"
+          aria-label="close"
+          data-sidebar-drawer-close
+        >
+          {% render 'icon' with 'close' %}
+        </button>
+      </div>
+  
+      <div class="sidebar-drawer__content" data-sidebar-drawer-content></div>
+    </div>
+  </div>
+  {% comment %}Inject sidebar-drawer end{% endcomment %}
+
+
+  <!-- Scripts -->
+  <script
+    src="{{ 'pacific.js' | asset_url }}"
+    data-scripts
+    data-shopify-api-url="{{ 'api.jquery.js' | shopify_asset_url }}"
+    data-shopify-common-url="{{ 'shopify_common.js' | shopify_asset_url }}"
+    data-jquery-currencies-url="{{ 'jquery.currencies.js' | asset_url }}"
+    data-jquery-templates-url="//ajax.aspnetcdn.com/ajax/jquery.templates/beta1/jquery.tmpl.min.js"
+    data-jquery-cart-url="{{ 'jquery.cart.min.js' | asset_url }}"
+    data-countries-url="/services/javascripts/countries.js"
+    data-customer-area-url="{{ 'customer_area.js'  | shopify_asset_url }}"
+    defer>
+  </script>
+
+  {% if template contains 'customers' %}
+    <script src="{{ 'shopify_common.js' | shopify_asset_url }}" defer></script>
+    <script src="{{ 'customer_area.js'  | shopify_asset_url }}" defer></script>
+  {% endif %}
+
+  <script>
+    (function () {
+      function handleFirstTab(e) {
+        if (e.keyCode === 9) { // the "I am a keyboard user" key
+          document.body.classList.add('user-is-tabbing');
+          window.removeEventListener('keydown', handleFirstTab);
+        }
+      }
+      window.addEventListener('keydown', handleFirstTab);
+    })();
+  </script>
+</body>
+</html>
