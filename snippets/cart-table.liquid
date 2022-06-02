@@ -1,0 +1,130 @@
+<table class="cart-items clean" data-cart-table>
+  <thead>
+    <tr>
+      <th class="first">{{ 'general.general.product' | t }}</th>
+      <th class="price">{{ 'general.general.price' | t }}</th>
+      <th>{{ 'general.general.quantity' | t }}</th>
+      <th class="last">{{ 'general.general.total' | t }}</th>
+    </tr>
+  </thead>
+  <tbody data-cart-table-body>
+    {% assign wcp_total_price = 0 %} 
+    
+    {% for item in cart.items %}
+    {% include 'wcp_discount' with item.product %}
+    {% include 'wcp_variant' with item.variant %}
+    {% include 'wcp_vd_discount' with item %}  
+    {% assign  wcp_custom_final_Price = item.final_price  %} 
+    {% if wcp_v_price < wcp_custom_final_Price %}
+    {% assign wcp_line_price = wcp_v_price | floor | minus: 0 | times: item.quantity %}
+    {% else %}
+    {% assign wcp_line_price = wcp_custom_final_Price | floor | minus: 0 | times: item.quantity %}
+    {% assign wcp_v_price = wcp_custom_final_Price | floor | minus: 0 %}
+    {% endif %}
+ 	{% assign wcp_total_price = wcp_total_price | plus: wcp_line_price %}	
+ 
+
+      {%- assign item_has_discounts = false -%}
+      {%- if item.line_level_discount_allocations.size > 0 -%}
+        {%- assign item_has_discounts = true -%}
+      {%- endif -%}
+      <tr
+        class="cart-item variant-{{ item.variant.id }}"
+        data-variant="{{ item.variant.id }}"
+        data-line-item-key="{{ item.key }}"
+        data-title="{{ item.product.title }}"
+        data-url="{{ item.product.url }}"
+      >
+        <td class="cart-item-product first">
+          <a class="cart-item-image" href="{{ item.product.url }}">
+            {% if item.image != blank %}
+              {%
+                render 'rimg',
+                img: item.image,
+                alt: item.title,
+                lazy: true
+              %}
+            {% else %}
+              {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+            {% endif %}
+          </a>
+
+          <span class="cart-item-vendor vendor">
+            <a href="{{ shop.url  }}/collections/vendors?q={{ item.vendor  }}">
+              {{ item.vendor }}
+            </a>
+          </span>
+
+          <span class="cart-item-title">
+            {{ item.product.title | link_to: item.product.url }}
+          </span>
+
+          {% for option in item.variant.options %}
+            {% unless option == 'Default Title' %}
+              <span class="cart-item-option">{{ option }}</span>
+            {% endunless %}
+          {% endfor %}
+
+          {% if item.properties %}
+            <div class="cart-line-item-properties">
+              {% for property in item.properties %}
+                {% if property.last != blank %}
+                  <span class="cart-item-property">
+                    <strong>{{ property.first }}</strong>:
+
+                    {% if property.last contains "/uploads/" %}
+                      <span class="cart-item-property-value cart-item-upload" data-file="{{ property.last }}">
+                        {{ property.last | split: '/' | last }}
+                      </span>
+                    {% else %}
+                      <span class="cart-item-property-value">
+                        {{ property.last }}
+                      </span>
+                    {% endif %}
+                  </span>
+                {% endif %}
+              {% endfor %}
+            </div>
+          {% endif %}
+
+          <a class="cart-item-remove" href="{{ routes.cart_change_url }}?line={{ forloop.index }}&amp;quantity=0">
+            {% render 'icon' with 'close' %}
+          </a>
+        </td>
+        <td class="cart-item-price">
+          {%- if item_has_discounts -%}
+            <s class="original-price"><span class="money">{{ wcp_v_compare_at_price | money }}</span></s>
+          {%- endif -%}
+          <span class="final-price money">{{  wcp_v_price  | money }}</span>
+          {%- if item_has_discounts -%}
+            <ul class="cart-item-discounts">
+              {% for discount_allocation in item.line_level_discount_allocations %}
+                <li>
+                  {% render 'icon' with 'sale-tag' %}
+                  {{ discount_allocation.discount_application.title }}
+                  (-<span class="money">{{ discount_allocation.amount | money }}</span>)
+                </li>
+              {% endfor %}
+            </ul>
+          {%- endif -%}
+        </td>
+
+        <td class="cart-item-quantity">
+          <input class="cart-item-quantity-display" type="text" name="updates[]" value="{{ item.quantity }}" size="1">
+          <span class="cart-item-decrease">
+            {% render 'icon' with 'minus' %}
+          </span>
+          <span class="cart-item-increase">
+            {% render 'icon' with 'plus' %}
+          </span>
+        </td>
+        <td class="cart-item-total last">
+          {%- if item_has_discounts -%}
+            <s class="original-price"><span class="money"><div class="pn-total-line-item" data-id="{{ item.key }}">{{ item.original_line_price | money }}</div></span></s>
+          {%- endif -%}
+          <span class="final-price money">{{  wcp_line_price  | money }}</span>
+        </td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>

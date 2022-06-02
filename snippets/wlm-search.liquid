@@ -1,0 +1,132 @@
+{%- assign w_continue = 'no' -%}
+{% assign wlmHideItem_Search = false %}{% for tag in customer.tags %}
+{% if tag == 'wpdnet' %}{% assign wlmLockedTags51301 = true %}{% endif %}
+{% if tag == 'wpdnet' %}{% assign wlmLockedTags51303 = true %}{% endif %}
+{% if tag == 'corporate' %}{% assign wlmLockedTags76266 = true %}{% endif %}
+{% if tag == 'wpdnet' %}{% assign wlmLockedTags76473 = true %}{% endif %}
+{% if tag == 'Wholesale' %}{% assign wlmLockedTags76474 = true %}{% endif %}
+{% if tag == 'corporate' %}{% assign wlmLockedTags76475 = true %}{% endif %}
+{% if tag == 'Wholesale' %}{% assign wlmLockedTags76609 = true %}{% endif %}
+{% if tag == 'wpdnet' %}{% assign wlmLockedTags76610 = true %}{% endif %}
+{% if tag == 'corporate' %}{% assign wlmLockedTags76664 = true %}{% endif %}
+{% if tag == 'corporate' %}{% assign wlmLockedTags77058 = true %}{% endif %}
+{% if tag == 'Wholesale' %}{% assign wlmLockedTags79986 = true %}{% endif %}
+{% if tag == 'wpdnet' %}{% assign wlmLockedTags79987 = true %}{% endif %}
+{% if tag == 'corporate' %}{% assign wlmLockedTags79988 = true %}{% endif %}
+{% if tag == 'cptnet' %}{% assign wlmLockedTags79989 = true %}{% endif %}
+{% if tag == 'wpdnet' %}{% assign wlmLockedTags79990 = true %}{% endif %}
+{% if tag == 'cptnet' %}{% assign wlmLockedTags79991 = true %}{% endif %}
+{% if tag == 'wpdnet' %}{% assign wlmLockedTags80020 = true %}{% endif %}
+{% if tag == 'Wholesale' %}{% assign wlmLockedTags80021 = true %}{% endif %}
+{% if tag == 'cptnet' %}{% assign wlmLockedTags80022 = true %}{% endif %}
+{% if tag == 'corporate' %}{% assign wlmLockedTags80023 = true %}{% endif %}
+{% if tag == 'Wholesale' %}{% assign wlmLockedTags80130 = true %}{% endif %}
+{% if tag == 'wpdnet' %}{% assign wlmLockedTags80131 = true %}{% endif %}
+{% if tag == 'cptnet' %}{% assign wlmLockedTags80132 = true %}{% endif %}
+{% if tag == 'Wholesale' %}{% assign wlmLockedTags80135 = true %}{% endif %}
+{% if tag == 'wpdnet' %}{% assign wlmLockedTags80136 = true %}{% endif %}
+{% if tag == 'cptnet' %}{% assign wlmLockedTags80137 = true %}{% endif %}
+{% if tag == 'Wholesale' %}{% assign wlmLockedTags80139 = true %}{% endif %}
+{% if tag == 'wpdnet' %}{% assign wlmLockedTags80140 = true %}{% endif %}
+{% if tag == 'cptnet' %}{% assign wlmLockedTags80141 = true %}{% endif %}
+{% if tag == 'wpdnet' %}{% assign wlmLockedTags83485 = true %}{% endif %}
+{% if tag == 'cptnet' %}{% assign wlmLockedTags83486 = true %}{% endif %}
+{% if tag == 'corporate' %}{% assign wlmLockedTags83487 = true %}{% endif %}
+{% if tag == 'wholesale' %}{% assign wlmLockedTags83488 = true %}{% endif %}
+{% if tag == 'wpdnet' %}{% assign wlmLockedTags92557 = true %}{% endif %}
+{% if tag == 'wpdnet' %}{% assign wlmLockedTags92990 = true %}{% endif %}
+{% if tag == 'cptnet' %}{% assign wlmLockedTags92991 = true %}{% endif %}
+{% endfor %}
+
+{% if customer.email contains 'rishi' %}{% assign wlmLockedTags77587 = true %}{% endif %}
+{% if customer.email contains 'rishi@subjectmatter.co.nz' %}{% assign wlmLockedTags96059 = true %}{% endif %}
+
+{%  if wlm-search.object_type == 'product' and wlm-search.collections %}
+
+{% for c in wlm-search.collections %}
+
+    {% if c.id == 168121794608 %}
+{% unless customer %}
+{% assign wlmLockON = true %}
+  {% assign wlmHideItem_Search = true %}{% continue %}
+{% else %}
+{% unless wlmLockedTags51303 %}{% assign wlmHideItem_Search = true %}{% continue %}{% endunless %}
+{% endunless %}
+
+{% endif %}
+{% endfor %}{% endif %}
+
+{%  if wlm-search.object_type == 'product' and wlm-search.collections %}
+
+{% for c in wlm-search.collections %}
+
+    {% if c.id == 168122548272 or c.id == 168122417200 or c.id == 18376097829 or c.id == 168848359472 or c.id == 17488347173 or c.id == 18387337253 or c.id == 168122515504 or c.id == 169264971824 %}
+{% if customer %}
+{% if wlmLockedTags92557 %}{% assign wlmHideItem_Search = true %}{% continue %}{% endif %}
+{% endif %}
+
+{% endif %}
+{% endfor %}{% endif %}
+
+{%  if wlm-search.object_type == 'product' and wlm-search.collections %}
+
+{% for c in wlm-search.collections %}
+
+    {% if c.id == 168122548272 or c.id == 168123072560 or c.id == 168122417200 or c.id == 168123007024 or c.id == 169264971824 or c.id == 169468100656 or c.id == 168122515504 or c.id == 168123039792 or c.id == 168333279280 or c.id == 168121794608 %}
+{% if customer %}
+{% if wlmLockedTags76664 %}{% assign wlmHideItem_Search = true %}{% continue %}{% endif %}
+{% endif %}
+
+{% endif %}
+{% endfor %}{% endif %}
+
+{%  if wlm-search.object_type == 'product' and wlm-search.collections %}
+
+{% for c in wlm-search.collections %}
+
+    {% if c.id == 261122457648 %}
+{% unless customer %}
+{% assign wlmLockON = true %}
+  {% assign wlmHideItem_Search = true %}{% continue %}
+{% else %}
+{% unless wlmLockedTags77058 %}{% assign wlmHideItem_Search = true %}{% continue %}{% endunless %}
+{% endunless %}
+
+{% endif %}
+{% endfor %}{% endif %}
+{%  if wlm-search.object_type == 'product' %}
+{% if wlm-search.id == 6617515786288 %} 
+ {% unless customer %}
+{% assign wlmLockON = true %}
+  {% assign wlmHideItem_Search = true %}{% continue %}
+{% else %}
+{% unless wlmLockedTags77587 %}{% assign wlmHideItem_Search = true %}{% continue %}{% endunless %}
+{% endunless %}
+{% endif %}
+{% endif %}
+
+
+{%  if wlm-search.object_type == 'product' and wlm-search.collections %}
+
+{% for c in wlm-search.collections %}
+
+    {% if c.id == 261591269424 %}
+{% if customer %}
+{% if wlmLockedTags83485 or wlmLockedTags83486 or wlmLockedTags83487 or wlmLockedTags83488 %}{% assign wlmHideItem_Search = true %}{% continue %}{% endif %}
+{% endif %}
+
+{% endif %}
+{% endfor %}{% endif %}
+{%  if wlm-search.object_type == 'product' %}
+{% if wlm-search.id == 6724682285104 %} 
+ {% if customer %}
+{% if wlmLockedTags92990 or wlmLockedTags92991 %}{% assign wlmHideItem_Search = true %}{% continue %}{% endif %}
+{% endif %}
+{% endif %}
+{% endif %}
+
+
+
+{% if wlmHideItem_Search == true %}{% continue %}{% endif %}
+
+{%- if wlm_is_render == 'yes' -%}{{- w_continue -}}{%-endif-%}

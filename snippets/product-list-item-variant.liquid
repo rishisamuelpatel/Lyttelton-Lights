@@ -1,0 +1,192 @@
+
+{% capture wpd_discounted_prices %}{%- render 'wcp_discount'  wcp_discount:product , wpd_is_render:'yes' -%}{% endcapture %}
+    
+    {%- capture wcp_price -%}{%- render 'wcp_render_discount' , wpd_discounted_prices:wpd_discounted_prices, price_variable:'wcp_price' -%}{%- endcapture -%}
+    {% assign  wcp_price = wcp_price | minus: 0 %}
+    
+    {%- capture wcp_compare_at_price  -%}{%- render 'wcp_render_discount', wpd_discounted_prices:wpd_discounted_prices, price_variable:'wcp_compare_at_price' -%}{%- endcapture -%}
+    {% if wcp_compare_at_price != blank %}
+        {% assign  wcp_compare_at_price = wcp_compare_at_price | minus: 0 %}
+    {% else %}
+    {% assign  wcp_compare_at_price = nil %}
+    {% endif %}
+    
+    {%- capture wcp_compare_at_price_min  -%}{%- render 'wcp_render_discount' , wpd_discounted_prices:wpd_discounted_prices, price_variable:'wcp_compare_at_price_min' -%}{%- endcapture -%}
+    {% assign  wcp_compare_at_price_min = wcp_compare_at_price_min | minus: 0 %}
+    
+    {%- capture wcp_compare_at_price_max  -%}{%- render 'wcp_render_discount', wpd_discounted_prices:wpd_discounted_prices, price_variable:'wcp_compare_at_price_max' -%}{%- endcapture -%}
+    {% assign  wcp_compare_at_price_max = wcp_compare_at_price_max | minus: 0 %}
+    
+    {%- capture wcp_price_min -%}{%- render 'wcp_render_discount' , wpd_discounted_prices:wpd_discounted_prices, price_variable:'wcp_price_min' -%}{%- endcapture -%}
+    {% assign  wcp_price_min = wcp_price_min | minus: 0 %}
+    
+    {%- capture wcp_price_max -%}{%- render 'wcp_render_discount' , wpd_discounted_prices:wpd_discounted_prices, price_variable:'wcp_price_max' -%}{%- endcapture -%}
+    {% assign  wcp_price_max = wcp_price_max | minus: 0 %}
+    
+    
+    {%- capture v_discount_tag -%}{%-render 'wcp_render_discount' , wpd_discounted_prices:wpd_discounted_prices, price_variable:'v_discount_tag'-%}{%- endcapture -%}
+    {% assign v_discount_tag = v_discount_tag | strip %}
+    
+    {%- capture p_discount_tag -%}{%- render 'wcp_render_discount' , wpd_discounted_prices:wpd_discounted_prices, price_variable:'p_discount_tag' -%}{%- endcapture -%}
+    {% assign p_discount_tag = p_discount_tag | strip %}
+    
+    {% assign raw_set_prices = product.metafields.wcp_set_prices.wcp_set_prices %}
+    {% assign set_prices_array = blank %}
+    {% if raw_set_prices %}
+        {% assign set_prices_array = raw_set_prices | split: ',' %}
+    {% endif %}
+    
+    {%- capture wcp_discount_value -%}{%- render 'wcp_render_discount' , wpd_discounted_prices:wpd_discounted_prices, price_variable:'wcp_discount_value' -%}{%- endcapture -%}
+    
+    {% capture wcp_v_discounted_prices %}{%- render 'wcp_variant' , wcp_variant:product.selected_or_first_available_variant , set_prices_array:set_prices_array , wpd_is_render:'yes', v_discount_tag : v_discount_tag , wcp_discount_value : wcp_discount_value -%}{%- endcapture -%}
+    
+    {%- capture wcp_v_price -%}{%- render 'wcp_render_discount' , wpd_discounted_prices:wcp_v_discounted_prices, price_variable:'wcp_v_price' -%}{%- endcapture -%}
+    {% assign  wcp_v_price = wcp_v_price | minus: 0 %}
+    
+    {%- capture wcp_v_compare_at_price -%}{%- render 'wcp_render_discount' , wpd_discounted_prices:wcp_v_discounted_prices, price_variable:'wcp_v_compare_at_price' -%}{%- endcapture -%}
+    {% if wcp_v_compare_at_price != blank %}
+        {% assign  wcp_v_compare_at_price = wcp_v_compare_at_price | minus: 0 %}
+    {% else %}
+    {% assign  wcp_v_compare_at_price = nil %}
+    {% endif %}
+{% assign item = item | default: product %}
+{% assign prod = prod | default: product %}
+{% assign productTextStyle = settings.product_text_style %}
+{% assign productImageFlip = productImageFlip | default: settings.product_image_flip %}
+{% assign stockLevelOverlay = stockLevelOverlay | default: false %}
+{% assign stockLevelOverlayThreshold = stockLevelOverlayThreshold | default: nil %}
+
+{% if template contains 'product' %}
+  {% assign item = prod %}
+{% endif %}
+
+{% if elementType == blank %}
+  {% assign elementType = 'div' %}
+{% endif %}
+
+{% assign saleText = 'products.product.sale' | t %}
+{% capture percentage %}{{ wcp_compare_at_price | minus: wcp_price | times: 100.0 | divided_by: wcp_compare_at_price | money_without_currency | times: 100 | remove: '.0' }}%{% endcapture %}
+{% assign saleText = saleText | replace: '{PCT}', percentage %}
+
+{% if stockLevelOverlay and item.available %}
+  {% assign total = 0 %}
+  {% assign threshold = stockLevelOverlayThreshold | times: 1 %}
+  {% assign infinity = false %}
+  {% for variant in item.variants %}
+    {% if variant.inventory_management == null %}
+      {% assign infinity = true %}
+    {% elsif variant.inventory_management == '' %}
+      {% assign infinity = true %}
+    {% elsif variant.inventory_management == 'shopify' and variant.inventory_policy == 'continue' %}
+      {% assign infinity = true %}
+    {% elsif infinity == false %}
+      {% capture temp %}{{ total | plus: variant.inventory_quantity }}{% endcapture %}
+      {% assign total = temp | times: 1 %}
+    {% endif %}
+  {% endfor %}
+  {% assign stockText = 'products.product.stock_indicator_message' | t: num: total %}
+{% endif %}
+
+{% assign onSale = false %}
+{% if item.compare_at_price> wcp_price %}
+  {% assign onSale = true %}
+{% endif %}
+
+<{{ elementType }} class="product-list-item">
+
+  {% assign isSearch = false %}
+  {% if template contains 'search' %}
+    {% assign isSearch = true %}
+  {% endif %}
+
+  {% if productTextStyle == 'overlay' and isSearch == false %}
+  <a class="product-list-item-overlay-link" href="{{ item.url | within: collection }}"></a>
+  {% endif %}
+
+  {% assign secondaryImage = false %}
+  {% if item.media.size > 1 and productImageFlip %}
+    {% assign secondaryImage = true %}
+  {% endif %}
+
+  {%- capture item_class -%}
+    {%- if secondaryImage -%}
+      primary-image
+    {%- else -%}
+      only-image
+    {%- endif -%}
+  {%- endcapture -%}
+
+  <figure class="product-list-item-thumbnail
+    {% unless item.featured_media %}product-list-item-no-image{% endunless %}"
+    {% if secondaryImage %}style="background-image:url({{ item.media[1].preview_image | img_url: '600x600' }})"{% endif %}
+    >
+    <a href="{{ item.url | within: collection }}">
+    {% if item.featured_media %}
+      {%
+        render 'rimg',
+        img: item.featured_media.preview_image,
+        size: '600x600',
+        class: item_class,
+        lazy: true
+      %}
+    {% else %}
+      {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+    {% endif %}
+    </a>
+
+    {% if item.available %}
+      {% if stockLevelOverlay
+        and infinity == false
+        and total < threshold
+        and onSale
+      %}
+        <span class="product-list-item-badge meta sale">{{ saleText }}<br>{{ stockText }}</span>
+      {% elsif stockLevelOverlay
+        and infinity == false
+        and total < threshold
+      %}
+        <span class="product-list-item-badge meta inventory">{{ stockText }}</span>
+      {% elsif onSale %}
+        <span class="product-list-item-badge meta sale">{{ saleText }}</span>
+      {% endif %}
+    {% else %}
+      <span class="product-list-item-badge inventory">{{ 'products.product.sold_out' | t }}</span>
+    {% endif %}
+  </figure>
+
+  {% if productTextStyle == 'overlay' and isSearch == false %}
+  <div class="product-list-item-details-wrapper">
+  {% endif %}
+
+  <div class="product-list-item-details">
+
+   
+    <h4 class="product-list-item-title product-list-item-title-variant"><a href="{{ item.url | within: collection }}">{{ parent_product.title }}</a></h4>
+    <p class="product-list-item-price product-list-item-price-variant">
+      {% if item.available %}
+          {% if onSale %}
+            <span class="price on-sale">
+              <span class="money"> {{ item.title }} - {{ wcp_price | money }}</span>
+              <span class="original money">{{ wcp_compare_at_price | money }}</span>
+            </span>
+          {% else %}
+            <span class="price money"> {{ item.title }} - {{ wcp_price | money }}</span>
+          {% endif %}
+      {% else %}
+         {{ item.title }} - {{ 'products.product.sold_out' | t }}
+      {% endif %}
+    </p>
+  </div>
+
+  {% if productTextStyle == 'overlay' and isSearch == false %}
+  </div>
+  {% endif %}
+
+</{{ elementType }}>
+
+{% assign wcp_prd_var = product %}
+{% unless wcp_prd_var == empty %}
+            <script type='application/json' class='wcp_json {% for wcp_v in wcp_prd_var.variants %} wcp_json_{{wcp_v.id}} {% endfor %} wcp_json_{{ wcp_prd_var.id }}' id='wcp_json_{{ wcp_prd_var.id }}' > 
+                {% render 'wcp_product_json' with wcp_prd_var %}
+            </script>
+{% endunless %}

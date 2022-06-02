@@ -1,0 +1,466 @@
+<script type='text/javascript' src='https://lytteltonlights.com/apps/wlm/js/wlm-1.1.js'></script>
+{% assign wlmEnabled = true %}
+{% assign wlmLockON = false %}
+{% assign wlmRedirectURL = '' %} 
+{% assign wlmPnfHead = '' %} 
+{% assign wlmPnfMsg = '' %}
+{% assign wlmPwdForm = false %}
+{% assign wlmPwdMsg = '' %}
+{% assign wlmSuperPage = false %}
+
+{% if template == 'customers/login' or template == 'customers/activate_account' or template == 'customers/reset_password' or canonical_url contains 'challenge' %}
+
+{% unless canonical_url contains '/products/' or canonical_url contains '/collection/' or canonical_url contains '/collections/' or canonical_url contains '/search' %} {% assign wlmSuperPage = true %}
+ {% endunless %}{% endif %}
+
+{% capture wlm_check %}{% include 'super_page_access' %}{% endcapture %}{% if wlm_check != 'Liquid error: Could not find asset snippets/super_page_access.liquid' %}{% include 'super_page_access' %}{% endif %}
+{% if wlmEnabled %}
+<style type="text/css">.wlm-message-pnf{text-align:center;}#wlm-pwd-form {padding: 30px 0;text-align: center}#wlm-wrapper,.wlm-form-holder {display: inline-block}#wlm-pwd-error {display: none;color: #fb8077;text-align: left}#wlm-pwd-error.wlm-error {border: 1px solid #fb8077}#wlm-pwd-form-button {display: inline-block!important;height: auto!important;padding: 8px 15px!important;background: #777;border-radius: 3px!important;color: #fff!important;text-decoration: none!important;vertical-align: top}.wlm-instantclick-fix,.wlm-item-selector {position: absolute;z-index: -999;display: none;height: 0;width: 0;font-size: 0;line-height: 0}</style>
+
+{% for tag in customer.tags %}
+{% if tag == 'wpdnet' %}{% assign wlmLockedTags51301 = true %}{% endif %}
+{% if tag == 'wpdnet' %}{% assign wlmLockedTags51303 = true %}{% endif %}
+{% if tag == 'corporate' %}{% assign wlmLockedTags76266 = true %}{% endif %}
+{% if tag == 'wpdnet' %}{% assign wlmLockedTags76473 = true %}{% endif %}
+{% if tag == 'Wholesale' %}{% assign wlmLockedTags76474 = true %}{% endif %}
+{% if tag == 'corporate' %}{% assign wlmLockedTags76475 = true %}{% endif %}
+{% if tag == 'Wholesale' %}{% assign wlmLockedTags76609 = true %}{% endif %}
+{% if tag == 'wpdnet' %}{% assign wlmLockedTags76610 = true %}{% endif %}
+{% if tag == 'corporate' %}{% assign wlmLockedTags76664 = true %}{% endif %}
+{% if tag == 'corporate' %}{% assign wlmLockedTags77058 = true %}{% endif %}
+{% if tag == 'Wholesale' %}{% assign wlmLockedTags79986 = true %}{% endif %}
+{% if tag == 'wpdnet' %}{% assign wlmLockedTags79987 = true %}{% endif %}
+{% if tag == 'corporate' %}{% assign wlmLockedTags79988 = true %}{% endif %}
+{% if tag == 'cptnet' %}{% assign wlmLockedTags79989 = true %}{% endif %}
+{% if tag == 'wpdnet' %}{% assign wlmLockedTags79990 = true %}{% endif %}
+{% if tag == 'cptnet' %}{% assign wlmLockedTags79991 = true %}{% endif %}
+{% if tag == 'wpdnet' %}{% assign wlmLockedTags80020 = true %}{% endif %}
+{% if tag == 'Wholesale' %}{% assign wlmLockedTags80021 = true %}{% endif %}
+{% if tag == 'cptnet' %}{% assign wlmLockedTags80022 = true %}{% endif %}
+{% if tag == 'corporate' %}{% assign wlmLockedTags80023 = true %}{% endif %}
+{% if tag == 'Wholesale' %}{% assign wlmLockedTags80130 = true %}{% endif %}
+{% if tag == 'wpdnet' %}{% assign wlmLockedTags80131 = true %}{% endif %}
+{% if tag == 'cptnet' %}{% assign wlmLockedTags80132 = true %}{% endif %}
+{% if tag == 'Wholesale' %}{% assign wlmLockedTags80135 = true %}{% endif %}
+{% if tag == 'wpdnet' %}{% assign wlmLockedTags80136 = true %}{% endif %}
+{% if tag == 'cptnet' %}{% assign wlmLockedTags80137 = true %}{% endif %}
+{% if tag == 'Wholesale' %}{% assign wlmLockedTags80139 = true %}{% endif %}
+{% if tag == 'wpdnet' %}{% assign wlmLockedTags80140 = true %}{% endif %}
+{% if tag == 'cptnet' %}{% assign wlmLockedTags80141 = true %}{% endif %}
+{% if tag == 'wpdnet' %}{% assign wlmLockedTags83485 = true %}{% endif %}
+{% if tag == 'cptnet' %}{% assign wlmLockedTags83486 = true %}{% endif %}
+{% if tag == 'corporate' %}{% assign wlmLockedTags83487 = true %}{% endif %}
+{% if tag == 'wholesale' %}{% assign wlmLockedTags83488 = true %}{% endif %}
+{% if tag == 'wpdnet' %}{% assign wlmLockedTags92557 = true %}{% endif %}
+{% if tag == 'wpdnet' %}{% assign wlmLockedTags92990 = true %}{% endif %}
+{% if tag == 'cptnet' %}{% assign wlmLockedTags92991 = true %}{% endif %}
+{% endfor %}
+
+{% if customer.email contains 'rishi' %}{% assign wlmLockedTags77587 = true %}{% endif %}
+{% if customer.email contains 'rishi@subjectmatter.co.nz' %}{% assign wlmLockedTags96059 = true %}{% endif %}
+{% unless wlmLockON or wlmSuperPage or template == 'customers/register' %}
+{% assign wlmLockedContent = false %}
+{% assign LockURL='/apps/shop' %}
+{% if canonical_url contains LockURL %}{% assign wlmLockedContent = true %}{% endif %}
+{% if wlmLockedContent %}
+{% unless customer %}
+{% assign wlmLockON = true %}
+{% capture wlmPnfHead %}Page not found{% endcapture %}
+{% capture wlmPnfMsg %}<p>Sorry, we couldn't find this page.</p>{% endcapture %}
+{% capture wlmRedirectURL %}login{% endcapture %}
+{% else %}
+{% unless wlmLockedTags76473 or wlmLockedTags76474 or wlmLockedTags76475 %}{% assign wlmLockON = true %}{% endunless %}
+{% if wlmLockON %}
+{% capture wlmPnfHead %}Page not found{% endcapture %}
+{% capture wlmPnfMsg %}<p>Sorry, we couldn't find this page.</p>{% endcapture %}
+{% capture wlmRedirectURL %}login{% endcapture %}
+{% endif %}
+{% endunless %}
+{% endif %}
+{% endunless %}
+
+
+{% unless wlmLockON or wlmSuperPage or template == 'customers/register' %}
+{% assign wlmLockedContent = false %}
+{% if template contains 'page' and page %}{% if page.id == 53326184496 %}{% assign wlmLockedContent = true %}{% endif %}{% endif %}
+{% if wlmLockedContent %}
+{% unless customer %}
+{% assign wlmLockON = true %}
+{% capture wlmPnfHead %}Page not found{% endcapture %}
+{% capture wlmPnfMsg %}<p>Sorry, we couldn't find this page.</p>{% endcapture %}
+{% capture wlmRedirectURL %}login{% endcapture %}
+{% else %}
+{% unless wlmLockedTags79990 or wlmLockedTags79991 %}{% assign wlmLockON = true %}{% endunless %}
+{% if wlmLockON %}
+{% capture wlmPnfHead %}Page not found{% endcapture %}
+{% capture wlmPnfMsg %}<p>Sorry, we couldn't find this page.</p>{% endcapture %}
+{% capture wlmRedirectURL %}login{% endcapture %}
+{% endif %}
+{% endunless %}
+{% endif %}
+{% endunless %}
+
+
+{% unless wlmLockON or wlmSuperPage or template == 'customers/register' %}
+{% assign wlmLockedContent = false %}
+{% if template contains 'page' and page %}{% if page.id == 53470036016 %}{% assign wlmLockedContent = true %}{% endif %}{% endif %}
+{% if wlmLockedContent %}
+{% unless customer %}
+{% assign wlmLockON = true %}
+{% capture wlmPnfHead %}Page not found{% endcapture %}
+{% capture wlmPnfMsg %}<p>Sorry, we couldn't find this page.</p>{% endcapture %}
+{% capture wlmRedirectURL %}login{% endcapture %}
+{% else %}
+{% unless wlmLockedTags51301 %}{% assign wlmLockON = true %}{% endunless %}
+{% if wlmLockON %}
+{% capture wlmPnfHead %}Page not found{% endcapture %}
+{% capture wlmPnfMsg %}<p>Sorry, we couldn't find this page.</p>{% endcapture %}
+{% capture wlmRedirectURL %}login{% endcapture %}
+{% endif %}
+{% endunless %}
+{% endif %}
+{% endunless %}
+
+
+{% unless wlmLockON or wlmSuperPage or template == 'customers/register' %}
+{% assign wlmLockedContent = false %}
+{% if template contains "collection" or template contains "product" %}
+{% if product.collections %}
+{% for c in product.collections %}
+{% if c.id == 168121794608 %} 
+{% assign wlmLockedContent = true %}{% break %}
+{% endif %}
+{% endfor %}
+{% endif %}
+{% endif %}
+{% if template contains 'collection' or template contains 'product' %}
+{% if collection %}
+{% if   collection.handle == 'wholesale' %}
+{% assign wlmLockedContent = true %}
+{% endif %}
+{% endif %}
+{% endif %}
+{% if wlmLockedContent %}
+{% unless customer %}
+{% assign wlmLockON = true %}
+{% capture wlmPnfHead %}Page not found{% endcapture %}
+{% capture wlmPnfMsg %}<p>Sorry, we couldn't find this page.</p>{% endcapture %}
+{% capture wlmRedirectURL %}login{% endcapture %}
+{% else %}
+{% unless wlmLockedTags51303 %}{% assign wlmLockON = true %}{% endunless %}
+{% if wlmLockON %}
+{% capture wlmPnfHead %}Page not found{% endcapture %}
+{% capture wlmPnfMsg %}<p>Sorry, we couldn't find this page.</p>{% endcapture %}
+{% capture wlmRedirectURL %}login{% endcapture %}
+{% endif %}
+{% endunless %}
+{% endif %}
+{% endunless %}
+
+
+{% unless wlmLockON or wlmSuperPage or template == 'customers/register' %}
+{% assign wlmLockedContent = false %}
+{% if template contains "collection" or template contains "product" %}
+{% if product.collections %}
+{% for c in product.collections %}
+{% if c.id == 168122548272 or c.id == 168122417200 or c.id == 169264971824 or c.id == 168122515504 or c.id == 18376097829 %} 
+{% assign wlmLockedContent = true %}{% break %}
+{% endif %}
+{% endfor %}
+{% endif %}
+{% endif %}
+{% if template contains 'collection' or template contains 'product' %}
+{% if collection %}
+{% if   collection.handle == 'accessories' or  collection.handle == 'candles' or  collection.handle == 'hand-wash' or  collection.handle == 'room-fragrances' or  collection.handle == 'collections' %}
+{% assign wlmLockedContent = true %}
+{% endif %}
+{% endif %}
+{% endif %}
+{% if wlmLockedContent %}
+{% if customer %}
+{% if wlmLockedTags92557 %}{% assign wlmLockON = true %}{% endif %}
+{% if wlmLockON %}
+{% capture wlmPnfHead %}Page not found{% endcapture %}
+{% capture wlmPnfMsg %}<p>Sorry, we couldn't find this page.</p>{% endcapture %}
+{% capture wlmRedirectURL %}https://lytteltonlights.com/apps/shop{% endcapture %}
+{% endif %}
+{% endif %}
+{% endif %}
+{% endunless %}
+
+
+{% unless wlmLockON or wlmSuperPage or template == 'customers/register' %}
+{% assign wlmLockedContent = false %}
+{% if template contains "collection" or template contains "product" %}
+{% if product.collections %}
+{% for c in product.collections %}
+{% if c.id == 168122548272 or c.id == 168123072560 or c.id == 168122417200 or c.id == 168123007024 or c.id == 169264971824 or c.id == 169468100656 or c.id == 168122515504 or c.id == 168123039792 or c.id == 168333279280 or c.id == 168121794608 %} 
+{% assign wlmLockedContent = true %}{% break %}
+{% endif %}
+{% endfor %}
+{% endif %}
+{% endif %}
+{% if template contains 'collection' or template contains 'product' %}
+{% if collection %}
+{% if   collection.handle == 'accessories' or  collection.handle == 'wholesale-accessories' or  collection.handle == 'candles' or  collection.handle == 'wholesale-candles' or  collection.handle == 'hand-wash' or  collection.handle == 'hand-wash-1' or  collection.handle == 'room-fragrances' or  collection.handle == 'wholesale-room-fragrances' or  collection.handle == 'testers' or  collection.handle == 'wholesale' %}
+{% assign wlmLockedContent = true %}
+{% endif %}
+{% endif %}
+{% endif %}
+{% if wlmLockedContent %}
+{% if customer %}
+{% if wlmLockedTags76664 %}{% assign wlmLockON = true %}{% endif %}
+{% if wlmLockON %}
+{% capture wlmPnfHead %}Page not found{% endcapture %}
+{% capture wlmPnfMsg %}<p>Sorry, we couldn't find this page.</p>{% endcapture %}
+{% capture wlmRedirectURL %}https://lytteltonlights.com/apps/shop{% endcapture %}
+{% endif %}
+{% endif %}
+{% endif %}
+{% endunless %}
+
+
+{% unless wlmLockON or wlmSuperPage or template == 'customers/register' %}
+{% assign wlmLockedContent = false %}
+{% if template contains "collection" or template contains "product" %}
+{% if product.collections %}
+{% for c in product.collections %}
+{% if c.id == 261122457648 %} 
+{% assign wlmLockedContent = true %}{% break %}
+{% endif %}
+{% endfor %}
+{% endif %}
+{% endif %}
+{% if template contains 'collection' or template contains 'product' %}
+{% if collection %}
+{% if   collection.handle == 'corporate' %}
+{% assign wlmLockedContent = true %}
+{% endif %}
+{% endif %}
+{% endif %}
+{% if wlmLockedContent %}
+{% unless customer %}
+{% assign wlmLockON = true %}
+{% capture wlmPnfHead %}Page not found{% endcapture %}
+{% capture wlmPnfMsg %}<p>Sorry, we couldn't find this page.</p>{% endcapture %}
+{% capture wlmRedirectURL %}login{% endcapture %}
+{% else %}
+{% unless wlmLockedTags77058 %}{% assign wlmLockON = true %}{% endunless %}
+{% if wlmLockON %}
+{% capture wlmPnfHead %}Page not found{% endcapture %}
+{% capture wlmPnfMsg %}<p>Sorry, we couldn't find this page.</p>{% endcapture %}
+{% capture wlmRedirectURL %}login{% endcapture %}
+{% endif %}
+{% endunless %}
+{% endif %}
+{% endunless %}
+
+
+{% unless wlmLockON or wlmSuperPage or template == 'customers/register' %}
+{% assign wlmLockedContent = false %}
+{% if template contains 'page' and page %}{% if page.id == 79895953456 %}{% assign wlmLockedContent = true %}{% endif %}{% endif %}
+{% if wlmLockedContent %}
+{% unless customer %}
+{% assign wlmLockON = true %}
+{% capture wlmPnfHead %}Page not found{% endcapture %}
+{% capture wlmPnfMsg %}<p>Sorry, we couldn't find this page.</p>{% endcapture %}
+{% capture wlmRedirectURL %}login{% endcapture %}
+{% else %}
+{% unless wlmLockedTags80130 or wlmLockedTags80131 or wlmLockedTags80132 %}{% assign wlmLockON = true %}{% endunless %}
+{% if wlmLockON %}
+{% capture wlmPnfHead %}Page not found{% endcapture %}
+{% capture wlmPnfMsg %}<p>Sorry, we couldn't find this page.</p>{% endcapture %}
+{% capture wlmRedirectURL %}login{% endcapture %}
+{% endif %}
+{% endunless %}
+{% endif %}
+{% endunless %}
+
+
+{% unless wlmLockON or wlmSuperPage or template == 'customers/register' %}
+{% assign wlmLockedContent = false %}
+{% if template contains 'page' and page %}{% if page.id == 79895986224 %}{% assign wlmLockedContent = true %}{% endif %}{% endif %}
+{% if wlmLockedContent %}
+{% unless customer %}
+{% assign wlmLockON = true %}
+{% capture wlmPnfHead %}Page not found{% endcapture %}
+{% capture wlmPnfMsg %}<p>Sorry, we couldn't find this page.</p>{% endcapture %}
+{% capture wlmRedirectURL %}login{% endcapture %}
+{% else %}
+{% unless wlmLockedTags80135 or wlmLockedTags80136 or wlmLockedTags80137 %}{% assign wlmLockON = true %}{% endunless %}
+{% if wlmLockON %}
+{% capture wlmPnfHead %}Page not found{% endcapture %}
+{% capture wlmPnfMsg %}<p>Sorry, we couldn't find this page.</p>{% endcapture %}
+{% capture wlmRedirectURL %}login{% endcapture %}
+{% endif %}
+{% endunless %}
+{% endif %}
+{% endunless %}
+
+
+{% unless wlmLockON or wlmSuperPage or template == 'customers/register' %}
+{% assign wlmLockedContent = false %}
+{% if template contains 'page' and page %}{% if page.id == 79896018992 %}{% assign wlmLockedContent = true %}{% endif %}{% endif %}
+{% if wlmLockedContent %}
+{% unless customer %}
+{% assign wlmLockON = true %}
+{% capture wlmPnfHead %}Page not found{% endcapture %}
+{% capture wlmPnfMsg %}<p>Sorry, we couldn't find this page.</p>{% endcapture %}
+{% capture wlmRedirectURL %}login{% endcapture %}
+{% else %}
+{% unless wlmLockedTags80139 or wlmLockedTags80140 or wlmLockedTags80141 %}{% assign wlmLockON = true %}{% endunless %}
+{% if wlmLockON %}
+{% capture wlmPnfHead %}Page not found{% endcapture %}
+{% capture wlmPnfMsg %}<p>Sorry, we couldn't find this page.</p>{% endcapture %}
+{% capture wlmRedirectURL %}login{% endcapture %}
+{% endif %}
+{% endunless %}
+{% endif %}
+{% endunless %}
+
+
+{% unless wlmLockON or wlmSuperPage or template == 'customers/register' %}
+{% assign wlmLockedContent = false %}
+{% if template contains 'page' and page %}{% if page.id == 79895855152 %}{% assign wlmLockedContent = true %}{% endif %}{% endif %}
+{% if wlmLockedContent %}
+{% unless customer %}
+{% assign wlmLockON = true %}
+{% capture wlmPnfHead %}Page not found{% endcapture %}
+{% capture wlmPnfMsg %}<p>Sorry, we couldn't find this page.</p>{% endcapture %}
+{% capture wlmRedirectURL %}login{% endcapture %}
+{% else %}
+{% unless wlmLockedTags80020 or wlmLockedTags80021 or wlmLockedTags80022 or wlmLockedTags80023 %}{% assign wlmLockON = true %}{% endunless %}
+{% if wlmLockON %}
+{% capture wlmPnfHead %}Page not found{% endcapture %}
+{% capture wlmPnfMsg %}<p>Sorry, we couldn't find this page.</p>{% endcapture %}
+{% capture wlmRedirectURL %}login{% endcapture %}
+{% endif %}
+{% endunless %}
+{% endif %}
+{% endunless %}
+
+
+{% unless wlmLockON or wlmSuperPage or template == 'customers/register' %}
+{% assign wlmLockedContent = false %}
+{% if template contains 'page' and page %}{% if page.id == 79896281136 %}{% assign wlmLockedContent = true %}{% endif %}{% endif %}
+{% if wlmLockedContent %}
+{% unless customer %}
+{% assign wlmLockON = true %}
+{% capture wlmPnfHead %}Page not found{% endcapture %}
+{% capture wlmPnfMsg %}<p>Sorry, we couldn't find this page.</p>{% endcapture %}
+{% capture wlmRedirectURL %}login{% endcapture %}
+{% else %}
+{% unless wlmLockedTags79986 or wlmLockedTags79987 or wlmLockedTags79988 or wlmLockedTags79989 %}{% assign wlmLockON = true %}{% endunless %}
+{% if wlmLockON %}
+{% capture wlmPnfHead %}Page not found{% endcapture %}
+{% capture wlmPnfMsg %}<p>Sorry, we couldn't find this page.</p>{% endcapture %}
+{% capture wlmRedirectURL %}login{% endcapture %}
+{% endif %}
+{% endunless %}
+{% endif %}
+{% endunless %}
+
+
+{% unless wlmLockON or wlmSuperPage or template == 'customers/register' %}
+{% assign wlmLockedContent = false %}
+{% if template contains "product" and product %} {% if product.id == 6617515786288 %} {% assign wlmLockedContent = true %}{% endif %}{% endif %}{% if wlmLockedContent %}
+{% unless customer %}
+{% assign wlmLockON = true %}
+{% capture wlmPnfHead %}Page not found{% endcapture %}
+{% capture wlmPnfMsg %}<p>Sorry, we couldn't find this page.</p>{% endcapture %}
+{% capture wlmRedirectURL %}login{% endcapture %}
+{% else %}
+{% unless wlmLockedTags77587 %}{% assign wlmLockON = true %}{% endunless %}
+{% if wlmLockON %}
+{% capture wlmPnfHead %}Page not found{% endcapture %}
+{% capture wlmPnfMsg %}<p>Sorry, we couldn't find this page.</p>{% endcapture %}
+{% endif %}
+{% endunless %}
+{% endif %}
+{% endunless %}
+
+
+{% unless wlmLockON or wlmSuperPage or template == 'customers/register' %}
+{% assign wlmLockedContent = false %}
+{% if template contains "collection" or template contains "product" %}
+{% if product.collections %}
+{% for c in product.collections %}
+{% if c.id == 261591269424 %} 
+{% assign wlmLockedContent = true %}{% break %}
+{% endif %}
+{% endfor %}
+{% endif %}
+{% endif %}
+{% if template contains 'collection' or template contains 'product' %}
+{% if collection %}
+{% if   collection.handle == 'seconds' %}
+{% assign wlmLockedContent = true %}
+{% endif %}
+{% endif %}
+{% endif %}
+{% if wlmLockedContent %}
+{% if customer %}
+{% if wlmLockedTags83485 or wlmLockedTags83486 or wlmLockedTags83487 or wlmLockedTags83488 %}{% assign wlmLockON = true %}{% endif %}
+{% if wlmLockON %}
+{% capture wlmPnfHead %}Page not found{% endcapture %}
+{% capture wlmPnfMsg %}<p>Sorry, we couldn't find this page.</p>{% endcapture %}
+{% capture wlmRedirectURL %}login{% endcapture %}
+{% endif %}
+{% endif %}
+{% endif %}
+{% endunless %}
+
+
+{% unless wlmLockON or wlmSuperPage or template == 'customers/register' %}
+{% assign wlmLockedContent = false %}
+{% if template contains "product" and product %} {% if product.id == 6724682285104 %} {% assign wlmLockedContent = true %}{% endif %}{% endif %}{% if wlmLockedContent %}
+{% if customer %}
+{% if wlmLockedTags92990 or wlmLockedTags92991 %}{% assign wlmLockON = true %}{% endif %}
+{% if wlmLockON %}
+{% capture wlmPnfHead %}Page not found{% endcapture %}
+{% capture wlmPnfMsg %}<p>Sorry, we couldn't find this page.</p>{% endcapture %}
+{% capture wlmRedirectURL %}login{% endcapture %}
+{% endif %}
+{% endif %}
+{% endif %}
+{% endunless %}
+
+
+{% unless wlmLockON or wlmSuperPage or template == 'customers/register' %}
+{% assign wlmLockedContent = false %}
+{% if template contains "product" and product %} {% if product.id == 6773568340016 %} {% assign wlmLockedContent = true %}{% endif %}{% endif %}{% if wlmLockedContent %}
+{% unless customer %}
+{% assign wlmLockON = true %}
+{% capture wlmPnfHead %}Page not found{% endcapture %}
+{% capture wlmPnfMsg %}<p>Sorry, we couldn't find this page.</p>{% endcapture %}
+{% capture wlmRedirectURL %}login{% endcapture %}
+{% else %}
+{% unless wlmLockedTags96059 %}{% assign wlmLockON = true %}{% endunless %}
+{% if wlmLockON %}
+{% capture wlmPnfHead %}Page not found{% endcapture %}
+{% capture wlmPnfMsg %}<p>Sorry, we couldn't find this page.</p>{% endcapture %}
+{% endif %}
+{% endunless %}
+{% endif %}
+{% endunless %}
+
+
+{% endif %}
+
+{% capture wlm_check_hide %}{% include 'wlm-hideByLink' %}{% endcapture %}{% if wlm_check_hide != 'Liquid error: Could not find asset snippets/wlm-hideByLink.liquid' %}{% include 'wlm-hideByLink' %}{% endif %}
+
+        {% if wlmLockON %}<meta name='robots' content='NOINDEX,NOFOLLOW,NOARCHIVE,NOSNIPPET,NOODP,NOYDIR' />{% endif %}
+      <script type='text/javascript'>
+      {% if wlmLockON %}
+        wlm.navigate('{{ wlmRedirectURL}}');
+      {% else %}
+        wlm.navigateByLocation();
+      {% endif %}
+      wlm.jq(document).ready(function(){
+        wlm.removeLinks();
+      });
+    </script>
+    {% capture wlm_hide_price_check %}{% include "wlm-hide-price" %}{% endcapture %}
+    {% if wlm_hide_price_check != 'Liquid error: Could not find asset snippets/wlm-hide-price.liquid' %}
+        {% include "wlm-hide-price" %}
+    {% endif %}

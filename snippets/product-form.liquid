@@ -1,0 +1,219 @@
+
+{% capture wpd_discounted_prices %}{%- render 'wcp_discount'  wcp_discount:product , wpd_is_render:'yes' -%}{% endcapture %}
+    
+    {%- capture wcp_price -%}{%- render 'wcp_render_discount' , wpd_discounted_prices:wpd_discounted_prices, price_variable:'wcp_price' -%}{%- endcapture -%}
+    {% assign  wcp_price = wcp_price | minus: 0 %}
+    
+    {%- capture wcp_compare_at_price  -%}{%- render 'wcp_render_discount', wpd_discounted_prices:wpd_discounted_prices, price_variable:'wcp_compare_at_price' -%}{%- endcapture -%}
+    {% if wcp_compare_at_price != blank %}
+        {% assign  wcp_compare_at_price = wcp_compare_at_price | minus: 0 %}
+    {% else %}
+    {% assign  wcp_compare_at_price = nil %}
+    {% endif %}
+    
+    {%- capture wcp_compare_at_price_min  -%}{%- render 'wcp_render_discount' , wpd_discounted_prices:wpd_discounted_prices, price_variable:'wcp_compare_at_price_min' -%}{%- endcapture -%}
+    {% assign  wcp_compare_at_price_min = wcp_compare_at_price_min | minus: 0 %}
+    
+    {%- capture wcp_compare_at_price_max  -%}{%- render 'wcp_render_discount', wpd_discounted_prices:wpd_discounted_prices, price_variable:'wcp_compare_at_price_max' -%}{%- endcapture -%}
+    {% assign  wcp_compare_at_price_max = wcp_compare_at_price_max | minus: 0 %}
+    
+    {%- capture wcp_price_min -%}{%- render 'wcp_render_discount' , wpd_discounted_prices:wpd_discounted_prices, price_variable:'wcp_price_min' -%}{%- endcapture -%}
+    {% assign  wcp_price_min = wcp_price_min | minus: 0 %}
+    
+    {%- capture wcp_price_max -%}{%- render 'wcp_render_discount' , wpd_discounted_prices:wpd_discounted_prices, price_variable:'wcp_price_max' -%}{%- endcapture -%}
+    {% assign  wcp_price_max = wcp_price_max | minus: 0 %}
+    
+    
+    {%- capture v_discount_tag -%}{%-render 'wcp_render_discount' , wpd_discounted_prices:wpd_discounted_prices, price_variable:'v_discount_tag'-%}{%- endcapture -%}
+    {% assign v_discount_tag = v_discount_tag | strip %}
+    
+    {%- capture p_discount_tag -%}{%- render 'wcp_render_discount' , wpd_discounted_prices:wpd_discounted_prices, price_variable:'p_discount_tag' -%}{%- endcapture -%}
+    {% assign p_discount_tag = p_discount_tag | strip %}
+    
+    {% assign raw_set_prices = product.metafields.wcp_set_prices.wcp_set_prices %}
+    {% assign set_prices_array = blank %}
+    {% if raw_set_prices %}
+        {% assign set_prices_array = raw_set_prices | split: ',' %}
+    {% endif %}
+    
+    {%- capture wcp_discount_value -%}{%- render 'wcp_render_discount' , wpd_discounted_prices:wpd_discounted_prices, price_variable:'wcp_discount_value' -%}{%- endcapture -%}
+    
+    {% capture wcp_v_discounted_prices %}{%- render 'wcp_variant' , wcp_variant:product.selected_or_first_available_variant , set_prices_array:set_prices_array , wpd_is_render:'yes', v_discount_tag : v_discount_tag , wcp_discount_value : wcp_discount_value -%}{%- endcapture -%}
+    
+    {%- capture wcp_v_price -%}{%- render 'wcp_render_discount' , wpd_discounted_prices:wcp_v_discounted_prices, price_variable:'wcp_v_price' -%}{%- endcapture -%}
+    {% assign  wcp_v_price = wcp_v_price | minus: 0 %}
+    
+    {%- capture wcp_v_compare_at_price -%}{%- render 'wcp_render_discount' , wpd_discounted_prices:wcp_v_discounted_prices, price_variable:'wcp_v_compare_at_price' -%}{%- endcapture -%}
+    {% if wcp_v_compare_at_price != blank %}
+        {% assign  wcp_v_compare_at_price = wcp_v_compare_at_price | minus: 0 %}
+    {% else %}
+    {% assign  wcp_v_compare_at_price = nil %}
+    {% endif %}
+{% unless form_id %}
+  {% assign form_id = product.id %}
+{% endunless %}
+
+{% assign variant = product.selected_or_first_available_variant %}
+
+<div
+  class="
+    product-form
+    {% if section.settings.show_spb %}
+      smart-payment-buttons
+    {% endif %}
+  "
+  data-product-form="{{ form_id }}"
+>
+
+  <meta itemprop="name" content="{{ product.title }}">
+  <meta itemprop="brand" content="{{ product.vendor }}">
+  <meta itemprop="url" content="{{ shop.url }}{{ product.url }}">
+  <meta itemprop="image" content="{{ product.featured_media.preview_image | img_url: 'grande' }}">
+  <div class="product-details desktop-view-title">
+    <h1 class="page-title" itemprop="name">{{ product.title }}</h1>
+  </div>
+  {% capture product_form_id %}{{- 'product-form-' | append: section.id -}}{% endcapture %}
+
+  {% form 'product', product, id: product_form_id %}
+    <div id="infiniteoptions-container"></div>
+    <div id="uploadery-container"></div>
+
+    <div class="product-options">
+      {% if product.has_only_default_variant %}
+        <input
+          name="id"
+          value="{{ variant.id }}"
+          type="hidden"
+        >
+      {% else %}
+        {% comment %}
+          Option inputs
+        {% endcomment %}
+        {%- for option in product.options_with_values -%}
+          <div class="inline-field-wrapper js-required">
+            <label><strong>{{ option.name }}:</strong></label>
+
+            <div class="selector-wrapper select-wrapper">
+              {% assign optionIndex = forloop.index %}
+
+              {% comment %}
+                Select dropdown options
+              {% endcomment %}
+              <div class="option-select">
+                <select
+                  class="single-option-selector"
+                  name=""
+                  id="product-select-{{ form_id }}"
+                  tabindex="0"
+                  data-product-option="{{ 'option' | append: optionIndex }}"
+                >
+                  {% for value in option.values %}
+                    <option
+                      value="{{ value | escape }}"
+                      {% if option.selected_value == value %}selected{% endif %}
+                    >{{ value }}</option>
+                  {% endfor %}
+                </select>
+                {% render 'icon' with 'chevron-down' %}
+              </div>
+
+            </div>
+          </div>
+        {%- endfor -%}
+
+        <div class="selector-wrapper no-js-required">
+          <label for="product-select-{{ form_id }}-no-js">Product Options</label>
+          {% comment %}
+            Variant select. This is the source-of-truth for which variant to add and serves double purpose
+            as the select if js is disabled.
+          {% endcomment %}
+          <select
+            class="product-select inline-field-wrapper"
+            name="id"
+            id="product-select-{{ form_id }}-no-js"
+            data-variants
+          >
+            {% for variant in product.variants %}
+              {% if variant.available %}
+                <option
+                  {% if variant.selected %}selected="selected"{% endif %}
+                  value="{{ variant.id }}"
+                  data-variant-id="{{ variant.id }}">
+                  {{ variant.title }} - {{ wcp_v_price | money }}
+                </option>
+              {% else %}
+                <option disabled="disabled"
+                  value="{{ variant.id }}"
+                  data-variant-id="{{ variant.id }}">
+                  {{ variant.title }} - {{ 'products.product.sold_out' | t }}
+                </option>
+              {% endif %}
+            {% endfor %}
+          </select>
+        </div>
+      {% endif %}
+    </div>
+
+    {% if section.settings.enable_product_quantity %}
+      <div class="product-quantity">
+        <div class="input-wrapper">
+          <label for="quantity">{{ 'general.general.quantity' | t }}</label>
+          <input type="text" name="quantity" id="quantity" value="1" />
+        </div>
+      </div>
+    {% endif %}
+
+    <div class="product-submit" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+      <meta itemprop="price" content="{{ wcp_v_price | divided_by: 100.00 }}" />
+      <meta itemprop="priceCurrency" content="{{ cart.currency.iso_code }}" />
+
+      <span class="product-price" style="display:none;">
+        <span
+          class="product-price-minimum money"
+          data-variant-price>
+        </span>
+
+        <span
+          class="
+            product-price-compare
+            money
+            original
+            {% unless wcp_v_compare_at_price and wcp_v_compare_at_price > wcp_v_price %}
+              hidden
+            {% endunless %}
+          "
+          data-variant-compare-at-price
+        >
+          {{ wcp_v_compare_at_price | money }}
+        </span>
+      </span>
+
+      <span class="payment-buttons-container money">
+        {% if variant.available %}
+        <button class="add-to-cart" type="submit" > {{ 'products.product.add_to_cart' | t }} <span data-variant-price >{{ wcp_v_price | money }} </span> </button>
+          <link itemprop="availability" href="http://schema.org/InStock">
+
+          {% if section.settings.show_spb %}
+             {% unless customer.tags contains p_discount_tag or customer.tags contains v_discount_tag %} 
+            {% if product.selected_or_first_available_variant.price != wcp_v_price %}<div style="display:none">{% endif %}{{ form | payment_button }}{% if product.selected_or_first_available_variant.price != wcp_v_price %}</div>{% endif %}        
+          {% endunless %}
+          {% endif %}
+        {% else %}
+          
+        {% endif %}
+      </span>
+    </div>
+  
+  {% render 'ZooomyBackinStock' %}
+  
+  {% endform %}
+  <div class="product-message"></div>
+  <div class="surface-pick-up" data-surface-pick-up></div>
+</div>
+
+{% assign wcp_prd_var = product %}
+{% unless wcp_prd_var == empty %}
+            <script type='application/json' class='wcp_json {% for wcp_v in wcp_prd_var.variants %} wcp_json_{{wcp_v.id}} {% endfor %} wcp_json_{{ wcp_prd_var.id }}' id='wcp_json_{{ wcp_prd_var.id }}' > 
+                {% render 'wcp_product_json' with wcp_prd_var %}
+            </script>
+{% endunless %}

@@ -1,0 +1,183 @@
+
+{% assign results = results | default: false %}
+{% assign terms = '' %}
+{% assign products_results_count = 0 %}
+{% assign posts_results_count = 0 %}
+{% assign pages_results_count = 0 %}
+{% assign products = false %}
+{% assign postspages = false %}
+
+{% if results %}
+  {% for result in results %}
+    {% if result.object_type == 'product' %}
+      {% assign products_results_count = products_results_count | plus: 1 %}
+    {% elsif result.object_type == 'article' %}
+      {% assign posts_results_count = posts_results_count | plus: 1 %}
+    {% elsif result.object_type == 'page' %}
+      {% assign pages_results_count = pages_results_count | plus: 1 %}
+    {% endif %}
+  {% endfor %}
+{% endif %}
+
+{% assign pages_posts_count = posts_results_count | plus: pages_results_count %}
+
+{% capture products %}
+  {% if products_results_count > 0 %}
+    <h2 class="livesearch-products-header meta">{{ 'general.livesearch.products_results_header' | t }}</h2>
+    <ul class="livesearch-products-list">
+    {% assign found_products_count = 0 %}
+    {% for result in results %}
+      {% include 'wlm-search' with result %}
+      
+{% capture wpd_discounted_prices %}{%- render 'wcp_discount'  wcp_discount:result , wpd_is_render:'yes' -%}{% endcapture %}
+    
+    {%- capture wcp_price -%}{%- render 'wcp_render_discount' , wpd_discounted_prices:wpd_discounted_prices, price_variable:'wcp_price' -%}{%- endcapture -%}
+    {% assign  wcp_price = wcp_price | minus: 0 %}
+    
+    {%- capture wcp_compare_at_price  -%}{%- render 'wcp_render_discount', wpd_discounted_prices:wpd_discounted_prices, price_variable:'wcp_compare_at_price' -%}{%- endcapture -%}
+    {% if wcp_compare_at_price != blank %}
+        {% assign  wcp_compare_at_price = wcp_compare_at_price | minus: 0 %}
+    {% else %}
+    {% assign  wcp_compare_at_price = nil %}
+    {% endif %}
+    
+    {%- capture wcp_compare_at_price_min  -%}{%- render 'wcp_render_discount' , wpd_discounted_prices:wpd_discounted_prices, price_variable:'wcp_compare_at_price_min' -%}{%- endcapture -%}
+    {% assign  wcp_compare_at_price_min = wcp_compare_at_price_min | minus: 0 %}
+    
+    {%- capture wcp_compare_at_price_max  -%}{%- render 'wcp_render_discount', wpd_discounted_prices:wpd_discounted_prices, price_variable:'wcp_compare_at_price_max' -%}{%- endcapture -%}
+    {% assign  wcp_compare_at_price_max = wcp_compare_at_price_max | minus: 0 %}
+    
+    {%- capture wcp_price_min -%}{%- render 'wcp_render_discount' , wpd_discounted_prices:wpd_discounted_prices, price_variable:'wcp_price_min' -%}{%- endcapture -%}
+    {% assign  wcp_price_min = wcp_price_min | minus: 0 %}
+    
+    {%- capture wcp_price_max -%}{%- render 'wcp_render_discount' , wpd_discounted_prices:wpd_discounted_prices, price_variable:'wcp_price_max' -%}{%- endcapture -%}
+    {% assign  wcp_price_max = wcp_price_max | minus: 0 %}
+    
+    
+    {%- capture v_discount_tag -%}{%-render 'wcp_render_discount' , wpd_discounted_prices:wpd_discounted_prices, price_variable:'v_discount_tag'-%}{%- endcapture -%}
+    {% assign v_discount_tag = v_discount_tag | strip %}
+    
+    {%- capture p_discount_tag -%}{%- render 'wcp_render_discount' , wpd_discounted_prices:wpd_discounted_prices, price_variable:'p_discount_tag' -%}{%- endcapture -%}
+    {% assign p_discount_tag = p_discount_tag | strip %}
+    
+    {% assign raw_set_prices = result.metafields.wcp_set_prices.wcp_set_prices %}
+    {% assign set_prices_array = blank %}
+    {% if raw_set_prices %}
+        {% assign set_prices_array = raw_set_prices | split: ',' %}
+    {% endif %}
+    
+    {%- capture wcp_discount_value -%}{%- render 'wcp_render_discount' , wpd_discounted_prices:wpd_discounted_prices, price_variable:'wcp_discount_value' -%}{%- endcapture -%}
+    
+    {% capture wcp_v_discounted_prices %}{%- render 'wcp_variant' , wcp_variant:result.selected_or_first_available_variant , set_prices_array:set_prices_array , wpd_is_render:'yes', v_discount_tag : v_discount_tag , wcp_discount_value : wcp_discount_value -%}{%- endcapture -%}
+    
+    {%- capture wcp_v_price -%}{%- render 'wcp_render_discount' , wpd_discounted_prices:wcp_v_discounted_prices, price_variable:'wcp_v_price' -%}{%- endcapture -%}
+    {% assign  wcp_v_price = wcp_v_price | minus: 0 %}
+    
+    {%- capture wcp_v_compare_at_price -%}{%- render 'wcp_render_discount' , wpd_discounted_prices:wcp_v_discounted_prices, price_variable:'wcp_v_compare_at_price' -%}{%- endcapture -%}
+    {% if wcp_v_compare_at_price != blank %}
+        {% assign  wcp_v_compare_at_price = wcp_v_compare_at_price | minus: 0 %}
+    {% else %}
+    {% assign  wcp_v_compare_at_price = nil %}
+    {% endif %}
+      
+      {% if result.object_type == 'product' and found_products_count < 10 %}
+        {% assign found_products_count = found_products_count | plus: 1 %}
+
+        <li class="livesearch-product">
+          <a class="livesearch-product-link" href="{{ result.url }}">
+            {% if result.featured_media %}
+              <figure class="livesearch-product-figure">
+                {%
+                  render 'rimg'
+                  img: result.featured_media.preview_image,
+                  size: '70x',
+                  lazy: true,
+                %}
+              </figure>
+            {% endif %}
+
+            <div class="livesearch-product-content">
+              <h4 class="livesearch-product-title">
+                {{ result.title }}
+              </h4>
+
+              <div class="livesearch-product-price product-price sale">
+                <span class="money">{{ wcp_price | money }}</span>
+                {% if wcp_compare_at_price > wcp_price %}
+                  <span class="product-price-compare original money">{{ wcp_compare_at_price | money }}</span>
+                {% endif %}
+              </div>
+
+              {% if result.vendor %}
+                <span class="livesearch-product-vendor meta">
+                  {{ result.vendor }}
+                </span>
+              {% endif %}
+            </div>
+          </a>
+        </li>
+      {% endif %}
+    {% endfor %}
+    </ul>
+  {% else %}
+    <h4 class="livesearch-products-empty">{{ 'general.livesearch.products_empty_header' | t: search_terms: terms }}</h4>
+    <p class="livesearch-products-empty-text">{{ 'general.livesearch.products_empty_text' | t }}</p>
+    <a class="livesearch-products-viewall" href="{{ routes.collections_url }}">{{ 'general.livesearch.products_viewall' | t }}</a>
+  {% endif %}
+{% endcapture %}
+
+{% capture postspages %}
+  {% if pages_posts_count > 0 %}
+    {% assign found_postspages_count = 0 %}
+    <ul class="livesearch-pages-list">
+    {% for result in results %}
+      {% if result.object_type == 'article' or result.object_type == 'page' %}
+          {% if found_postspages_count < 5 %}
+          {% assign found_postspages_count = found_postspages_count | plus: 1 %}
+          {% if result.object_type == 'page' %}
+            <li class="livesearch-page">
+              <a class="livesearch-page-link" href="{{ result.url }}">
+                <h4 class="livesearch-page-title">{{ result.title }}</h4>
+                <p class="livesearch-page-content">{{ result.content | strip_html | slice: 0, 200 }}...</p>
+              </a>
+            </li>
+          {% elsif result.object_type == 'article' %}
+            <li class="livesearch-post">
+              <a class="livesearch-post-link" href="{{ result.url }}">
+                <div class="livesearch-post-date meta">{{ result.published_at | date: "%d %b %Y" }}</div>
+                <div class="livesearch-post-author meta">{{ result.author }}</div>
+                <h4 class="livesearch-post-title">{{ result.title }}</h4>
+              </a>
+            </li>
+          {% endif %}
+        {% endif %}
+      {% endif %}
+    {% endfor %}
+  {% else %}
+    <p class="livesearch-pages-empty">{{ 'general.livesearch.pages_empty_text' | t }}</p>
+  {% endif %}
+{% endcapture %}
+
+{% assign view = 'view=' | append: template.suffix %}
+<template data-options>
+  {
+    "sha256": {{ terms | json }},
+    "search_url": {{ canonical_url | remove: view | json }},
+    "search_results_count": {{ results_count | json }}
+  }
+</template>
+
+<template data-html="products">
+  {{ products }}
+</template>
+
+<template data-html="pages">
+  {{ postspages }}
+</template>
+
+{% assign wcp_prd_var = product %}
+{% unless wcp_prd_var == empty %}
+            <script type='application/json' class='wcp_json {% for wcp_v in wcp_prd_var.variants %} wcp_json_{{wcp_v.id}} {% endfor %} wcp_json_{{ wcp_prd_var.id }}' id='wcp_json_{{ wcp_prd_var.id }}' > 
+                {% render 'wcp_product_json' with wcp_prd_var %}
+            </script>
+{% endunless %}
