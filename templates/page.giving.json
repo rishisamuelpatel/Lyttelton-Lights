@@ -1,1 +1,80 @@
-{"sections":{"main":{"type":"giving","blocks":{"218e8b05-575d-403f-bb9a-1b6b77919982":{"type":"column","settings":{"amount":"$1000","charity_name":"Healthline","link":"","icon":"shopify:\/\/shop_images\/Giving.png"}},"301449a3-773f-4602-9207-8c58bee19572":{"type":"column","settings":{"amount":"$300","charity_name":"Ukraine","link":"","icon":"shopify:\/\/shop_images\/Giving.png"}},"dfddf773-7988-4e41-a99d-d8df2222d932":{"type":"column","settings":{"amount":"$5","charity_name":"Oceans","link":"","icon":"shopify:\/\/shop_images\/Giving.png"}}},"block_order":["218e8b05-575d-403f-bb9a-1b6b77919982","301449a3-773f-4602-9207-8c58bee19572","dfddf773-7988-4e41-a99d-d8df2222d932"],"settings":{"heading":"Lyttelton Lights Giving","text":"<p>We donate $1 from every purchase made in the Jeuneora online store to three charities that are very close to our hearts.<br\/><br\/>After you've made a purchase, you get to choose where the $1 goes or, if you're a subscriber, we'll automatically split the $1 from your purchase evenly between the charities.<br\/><br\/>We make payments to our nominated charities every 90 days.<\/p>","image":"shopify:\/\/shop_images\/Amber_copy.jpg","giving_icon":"shopify:\/\/shop_images\/Giving.png"}},"1654059429fa00ba66":{"type":"home-image-with-text","settings":{"title":"Image with text","border":false,"image_title":"Rich text","caption":"<p>Use this section to welcome customers to your store, say a bit about your brand, or share news and seasonal promotions.<\/p>","image-alignment":"right"}},"1654059508a32ae712":{"type":"home-image-with-text","settings":{"title":"Image with text","border":false,"image_title":"Rich text","caption":"<p>Use this section to welcome customers to your store, say a bit about your brand, or share news and seasonal promotions.<\/p>","image-alignment":"left"}},"165405951683ab0258":{"type":"home-image-with-text","settings":{"title":"Image with text","border":false,"image_title":"Rich text","caption":"<p>Use this section to welcome customers to your store, say a bit about your brand, or share news and seasonal promotions.<\/p>","image-alignment":"right"}}},"order":["main","1654059429fa00ba66","1654059508a32ae712","165405951683ab0258"]}
+{
+  "sections": {
+    "main": {
+      "type": "giving",
+      "blocks": {
+        "218e8b05-575d-403f-bb9a-1b6b77919982": {
+          "type": "column",
+          "settings": {
+            "amount": "$1000",
+            "charity_name": "Healthline",
+            "link": ""
+          }
+        },
+        "301449a3-773f-4602-9207-8c58bee19572": {
+          "type": "column",
+          "settings": {
+            "amount": "$300",
+            "charity_name": "Ukraine",
+            "link": ""
+          }
+        },
+        "dfddf773-7988-4e41-a99d-d8df2222d932": {
+          "type": "column",
+          "settings": {
+            "amount": "$5",
+            "charity_name": "Oceans",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "218e8b05-575d-403f-bb9a-1b6b77919982",
+        "301449a3-773f-4602-9207-8c58bee19572",
+        "dfddf773-7988-4e41-a99d-d8df2222d932"
+      ],
+      "settings": {
+        "heading": "Lyttelton Lights Giving",
+        "text": "<p>We donate $1 from every purchase made in the Jeuneora online store to three charities that are very close to our hearts.<br\/><br\/>After you've made a purchase, you get to choose where the $1 goes or, if you're a subscriber, we'll automatically split the $1 from your purchase evenly between the charities.<br\/><br\/>We make payments to our nominated charities every 90 days.<\/p>",
+        "image": "shopify:\/\/shop_images\/mauve-candle-on-white-table.jpg",
+        "giving_icon": "shopify:\/\/shop_images\/Giving.png"
+      }
+    },
+    "1654059429fa00ba66": {
+      "type": "home-image-with-text",
+      "settings": {
+        "title": "Image with text",
+        "border": false,
+        "image_title": "Rich text",
+        "caption": "<p>Use this section to welcome customers to your store, say a bit about your brand, or share news and seasonal promotions.<\/p>",
+        "image-alignment": "right"
+      }
+    },
+    "1654059508a32ae712": {
+      "type": "home-image-with-text",
+      "settings": {
+        "title": "Image with text",
+        "border": false,
+        "image_title": "Rich text",
+        "caption": "<p>Use this section to welcome customers to your store, say a bit about your brand, or share news and seasonal promotions.<\/p>",
+        "image-alignment": "left"
+      }
+    },
+    "165405951683ab0258": {
+      "type": "home-image-with-text",
+      "settings": {
+        "title": "Image with text",
+        "border": false,
+        "image_title": "Rich text",
+        "caption": "<p>Use this section to welcome customers to your store, say a bit about your brand, or share news and seasonal promotions.<\/p>",
+        "image-alignment": "right"
+      }
+    }
+  },
+  "order": [
+    "main",
+    "1654059429fa00ba66",
+    "1654059508a32ae712",
+    "165405951683ab0258"
+  ]
+}
