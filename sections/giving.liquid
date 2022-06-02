@@ -1,0 +1,117 @@
+
+<!-- Giving section starts -->
+<section class="giving">
+
+   
+      
+        <div class="giving-intro">
+            <h2> {{ section.settings.heading }} </h2>
+            <p> {{ section.settings.text }}</p>
+        </div>
+    <div class="giving-image">
+       <img src="{{section.settings.image | img_url: '2x'}}">
+    </div>
+   
+  
+  
+    </section>
+ 
+  <section class="giving_summary">
+
+   
+
+        {% for block in section.blocks %}
+
+        <div class="charity">
+          <img src="{{'giving.png' | asset_img_url: 'master'}}">
+          <p>You've helped us raise</p>
+            <p class="amount">{{ block.settings.amount }}</p>
+            <p> for {{ block.settings.charity_name }} </p>
+        </div>
+        {% endfor %}
+    
+	</section>    
+
+
+    <!-- Giving section ends -->
+   
+   
+   
+    {% schema %}
+    {
+        "name": "Giving Section",
+        "settings": [{
+                "id": "heading",
+                "type": "text",
+                "label": "Heading"
+            },
+            {
+                "id": "text",
+                "type": "richtext",
+                "label": "Description"
+            },
+			{
+				"id": "image",
+				"type": "image_picker",
+				"label": "image"
+			},
+			{
+				"id": "giving_icon",
+				"type": "image_picker",
+				"label": "Giving Icon"
+			}
+        ],
+        "blocks": [{
+            "type": "column",
+            "name": "Charity",
+            "settings": [
+                {
+                    "id": "amount",
+                    "type": "text",
+                    "label": "Amount"
+                },
+                {
+                    "type": "text",
+                    "id": "charity_name",
+                    "label": "Charity Name"
+                },
+                {
+                    "type": "url",
+                    "id": "link",
+                    "label": "Website"
+                }
+            ]
+        }]
+   
+    }
+    {% endschema %}
+    {% stylesheet %}
+
+<style>
+
+.giving_summary {
+       display: grid;
+       grid-template-columns: repeat(3, 1fr);
+      background-color: #E3E0DA;
+       
+    }
+
+    .charity p {
+        text-align: center;
+    }
+
+    .amount {
+        font-size: 28px;
+        font-weight: 700;
+    }
+  
+  	.giving {
+    	display: grid;
+    	grid-template-columns: repeat(2, 1fr);
+    	grid-column-gap: 100px;
+    }
+</style>
+
+    {% endstylesheet %}
+    {% javascript %}
+    {% endjavascript %}

@@ -1,0 +1,43 @@
+{% layout none %}
+                {% capture output %}
+                    {
+                        "shop_id" : "25260146",
+                        "spof_hide_top_bar" : "0",
+                        "spof_hide_bottom_bar" : "0",
+                        "spof_hide_desc" : "1",
+                        "spof_hide_outofstock_prd" :"0",
+                        "spof_btn_text_color" :"#000000",
+                        "spof_btn_bg_color" : "#000000",
+                        "spof_btn_txt_hover_color" : "#ffffff",
+                        "spof_btn_bg_hover_color" : "#c9c9c9",
+                        "spof_top_bar_color" :"#ecedef",
+                        "spof_txt_show" : "Show Sizes",
+                        "spof_txt_hide" : "Hide Sizes",
+                        "spof_txt_addcart" : "Add to Order",
+                        "spof_radius" : "5px",
+                        "spof_radius_top_bar" : "0px",
+                        "spof_radius_bottom_bar" : "0px",
+                        "spof_image_height" : "70px",
+                        "spof_quantiry_settings_msg" : "",
+                        "spof_total_prd" : "200",
+                        "spof_page_title" : "Lyttelton Lights Wholesale",
+                        "spof_hide_prd_img" : "0",
+                        "spof_hide_variant_img" : "0",
+                        "spof_hide_prd_sku" : "1",
+                        "spof_hide_variant_sku" : "1"
+                    }
+                {% endcapture %}
+            {{ output | strip_newlines }}
+
+{% schema %}
+  {
+    "name": "Spof settings",
+    "settings": []
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

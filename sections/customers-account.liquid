@@ -1,0 +1,293 @@
+<!-- /templates/customers/account.liquid -->
+{% if customer.tags contains 'wpdnet' %}
+
+<center> <h2> Wholesale Hub </h2>
+  
+  {% endif %}
+  
+  {% if customer.tags contains 'corporate' %}
+  
+  <center> <h2> Corporate Hub </h2>
+    
+    {% endif %}
+<div  class="page-width account-summary">
+  <header class="section-header section-header--small text-center">
+    {% comment %}<h1 class="section-header__title h2">{{ 'customer.account.title' | t }}</h1>{% endcomment %}
+    <h3 class="section-header__title h2">Hello {{ customer.name }}</h3>
+    <div class="section-header__btn">
+    <div class="section-header__btn">
+      <a class="btn-link" href="/account/logout">{{ 'customers.general.logout' | t }}</a>
+    </div>
+  </header>
+    
+  {% if customer.tags contains 'wpdnet' %}
+    <style><!--
+.rte p {
+    margin: inherit;
+}
+
+.rte a {
+  color: white;
+}
+
+.rte a:hover {
+  opacity: inherit;
+}
+
+.button, .buttondisabled {
+    opacity: 1;
+    background-color: #e5e5e5;
+    border: none;
+    color: black;
+    padding: 15px;
+    text-align: center;
+    text-color: white;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 15px;
+    margin: 5px 5px;
+    /*width: 175px;*/
+    width: 85%;
+    border-radius: 2.5px;
+    transition: background-color 0.3s ease-in-out;
+  }
+  .button:hover {
+    background-color: #c5c5c5;
+  }
+  .buttondisabled {
+    opacity: .5;
+  }
+  .buttondisabled:hover {
+    cursor:pointer;
+  }
+
+* {
+  box-sizing: border-box;
+}
+
+.row {
+  display: -ms-flexbox; /* IE10 */
+  display: flex;
+  -ms-flex-wrap: wrap; /* IE10 */
+  flex-wrap: wrap;
+}
+
+/* Create four equal columns that sits next to each other */
+.column {
+  -ms-flex: 25%; /* IE10 */
+  flex: 25%;
+  max-width: 100%;
+  margin-top: 5px;
+  vertical-align: middle;
+  text-align: center;
+}
+
+@media screen and (max-width: 800px) {
+  .column {
+    -ms-flex: 50%;
+    flex: 50%;
+    max-width: 100%;
+  }
+}
+
+
+/* Responsive layout - makes the two columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 600px) {
+  .column {
+    -ms-flex: 100%;
+    flex: 100%;
+    max-width: 100%;
+  }
+}
+--></style>
+<center>
+<div class="row">
+<div class="column"><a href="/apps/shop" class="button">Order Form</a></div>
+<div class="column"><a href="/pages/wholesale-faq" class="button">FAQ</a></div>
+<div class="column"><a href="https://cdn.shopify.com/s/files/1/2526/0146/files/LTL-WS-Catalogue_2021-2022-EMAIL_UPDATED-IMAGES.pdf?v=1634164936" class="button">Catalogue</a></div>
+<div class="column"><a href="/pages/sustainability" class="button">Sustainability</a></div>
+<div class="column"><a href="/blogs/editorial" class="button">Editorial</a></div>
+<div class="column"><a href="/pages/product-promotional-images" class="button">Product Media</a></div>
+<div class="column"><a href="/pages/our-story" class="button">Our Story</a></div>
+<div class="column"><a href="https://cdn.shopify.com/s/files/1/2526/0146/files/Wholesale_Terms_and_Conditions_of_trade.pdf?v=1621388836" class="button"">Terms of Trade</a></div>
+  
+</div>
+</center>
+    <br>
+  {% endif %}
+    
+  {% if customer.tags contains 'corporate' %}
+    <style><!--
+.rte p {
+    margin: inherit;
+}
+
+.rte a {
+  color: white;
+}
+
+.rte a:hover {
+  opacity: inherit;
+}
+
+.button, .buttondisabled {
+    opacity: 1;
+    background-color: #e5e5e5;
+    border: none;
+    color: black;
+    padding: 15px;
+    text-align: center;
+    text-color: white;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 5px 5px;
+    /*width: 175px;*/
+    width: 85%;
+    border-radius: 2.5px;
+    transition: background-color 0.3s ease-in-out;
+  }
+  .button:hover {
+    background-color: #c5c5c5;
+  }
+  .buttondisabled {
+    opacity: .5;
+  }
+  .buttondisabled:hover {
+    cursor:pointer;
+  }
+
+* {
+  box-sizing: border-box;
+}
+
+.row {
+  display: -ms-flexbox; /* IE10 */
+  display: flex;
+  -ms-flex-wrap: wrap; /* IE10 */
+  flex-wrap: wrap;
+}
+
+/* Create four equal columns that sits next to each other */
+.column {
+  -ms-flex: 25%; /* IE10 */
+  flex: 25%;
+  max-width: 100%;
+  margin-top: 5px;
+  vertical-align: middle;
+  text-align: center;
+}
+
+@media screen and (max-width: 800px) {
+  .column {
+    -ms-flex: 50%;
+    flex: 50%;
+    max-width: 100%;
+  }
+}
+
+
+/* Responsive layout - makes the two columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 600px) {
+  .column {
+    -ms-flex: 100%;
+    flex: 100%;
+    max-width: 100%;
+  }
+}
+--></style>
+<center>
+<div class="row">
+<div class="column"><a href="/apps/shop" class="button">Order Form</a></div>
+<div class="column"><a href="/pages/faq" class="button">FAQ</a></div>
+<div class="column"><a href="https://cdn.shopify.com/s/files/1/2526/0146/files/LTL-CORP-Catalogue_2021-2022-EMAIL_UPDATED-IMAGES.pdf?v=1634164935" class="button">Catalogue</a></div>
+<div class="column"><a href="/pages/sustainability" class="button">Sustainability</a></div>
+<div class="column"><a href="/blogs/editorial" class="button">Editorial</a></div>
+<div class="column"><a href="/pages/product-promotional-images" class="button">Product Media</a></div>
+<div class="column"><a href="/pages/our-story" class="button">Our Story</a></div>
+<div class="column"><a href="https://cdn.shopify.com/s/files/1/2526/0146/files/Corporate_Terms_and_Conditions_of_Trade.pdf?v=1626294554" class="button"">Terms of Trade</a></div>
+</div>
+</center>
+    <br>
+  {% endif %}
+    
+  <div class="grid grid--rows">
+    <div class="grid__item medium-up--one-fifth account-details">
+
+   <p>
+        <a href="/account/addresses" class="btn-link">{{ 'customers.addresses.title' | t }} ({{ customer.addresses_count }})</a>
+      </p>
+  
+      {{ customer.default_address | format_address }}
+
+     
+
+    </div>
+    
+    {% comment %}
+    <div class="grid__item medium-up--four-fifths">
+      <h2 class="h4">{{ 'customers.account.order_history' | t }}</h2>
+
+      {% paginate customer.orders by 20 %}
+      {% if customer.orders.size != 0 %}
+
+        <table class="responsive-table account-summary">
+          <thead>
+          <tr>
+            <th>{{ 'customer.orders.order_number' | t }}</th>
+            <th>{{ 'customer.orders.date' | t }}</th>
+            <th>{{ 'customer.orders.payment_status' | t }}</th>
+            <th>{{ 'customer.orders.fulfillment_status' | t }}</th>
+            <th>{{ 'customer.orders.total' | t }}</th>
+          </tr>
+          </thead>
+          <tbody>
+          {% for order in customer.orders %}
+            <tr class="responsive-table__row">
+              <td data-label="{{ 'customer.orders.order_number' | t }}">
+                <a href="{{ order.customer_url }}" 
+                   class="btn-link btn-link--wide">
+                   {{ order.name }}
+                 </a> 
+              </td>
+              <td data-label="{{ 'customer.orders.date' | t }}">
+                {{ order.created_at | time_tag: format: 'month_day_year' }}
+              </td>
+              <td data-label="{{ 'customer.orders.payment_status' | t }}">{{ order.financial_status_label }}</td>
+              <td data-label="{{ 'customer.orders.fulfillment_status' | t }}">{{ order.fulfillment_status_label }}</td>
+              <td data-label="{{ 'customer.orders.total' | t }}">{{ order.total_price | money }}</td>
+            </tr>
+          {% endfor %}
+          </tbody>
+        </table>
+
+      {% else %}
+
+        <p>{{ 'customers.account.no_orders' | t }}</p>
+
+      {% endif %}
+      {% if paginate.pages > 1 %}
+        {% include 'pagination' %}
+      {% endif %}
+      {% endpaginate %}
+    </div>
+  </div>
+    
+    {% endcomment %}
+
+
+</div>
+
+
+{% schema %}
+  {
+    "name": "Customers account",
+    "settings": []
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}
