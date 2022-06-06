@@ -23,7 +23,7 @@
         {% for block in section.blocks %}
 
         <div class="charity">
-          <img src="https://i.ibb.co/ZX3DVWb/Giving.png" height: 50%>
+          <img src="https://i.ibb.co/ZX3DVWb/Giving.png">
           <p>You've helped us raise</p>
             <p class="amount">{{ block.settings.amount }}</p>
             <p> for {{ block.settings.charity_name }} </p>
@@ -90,8 +90,8 @@
 <style>
 
 .giving_summary {
-       display: grid;
-       grid-template-columns: repeat(3, 1fr);
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
       background-color: #E3E0DA;
        
     }
